@@ -1,17 +1,13 @@
-const { initHttpServer, initP2PServer } = require("./blockchain");
-const request = require("supertest");
-const app = require("./blockchain");
+const { app, blockchain } = require("./blockchain");
+const supertest = require("supertest");
 
 describe("Blockchain Tests", () => {
-	beforeEach(() => {
-		// initHttpServer();
-		// initP2PServer();
-	});
 
 	test("Test getGenesisBlock function", async () => {
-		const response = await request(app).get("/blocks");
-        const body = JSON.parse(response.body);
+		var request = supertest(app);
+		const response = await request.get("/blocks");
 		expect(response.statusCode).toBe(200);
+		expect(response.text).toBe(JSON.stringify(blockchain))
 	});
 
 	// test("Test generateNextBlock function", () => {
