@@ -8,16 +8,18 @@ var http_port = process.env.HTTP_PORT || 3001;
 var p2p_port = process.env.P2P_PORT || 6001;
 var initialPeers = process.env.PEERS ? process.env.PEERS.split(",") : [];
 
+// Block 类
 class Block {
 	constructor(index, previousHash, timestamp, data, hash) {
 		this.index = index;
-		this.previousHash = previousHash.toString();
+		this.previousHash = previousHash.toString(); // 用以校验区块的合法性
 		this.timestamp = timestamp;
 		this.data = data;
-		this.hash = hash.toString();
+		this.hash = hash.toString(); // // 用以保留当前区块的唯一标识
 	}
 }
 
+// 广播事件
 var sockets = [];
 var MessageType = {
 	QUERY_LATEST: 0,
